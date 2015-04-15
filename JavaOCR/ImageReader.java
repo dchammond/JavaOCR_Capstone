@@ -25,7 +25,7 @@ public class ImageReader {
             for (int c = 0; c < this.width; ++c) {
                 this.pixels[r][c] = new Pixel(this.intToColor(this.image.getRGB(r, c)));
                 // getRGB returns an integer of type TYPE_INT_ARGB
-                // alpha channel in bits 24-31
+                // alpha channel in bits 24-31 NOT USING ALPHA
                 // red channel in bits 16-23
                 // green channel in bits 8-15
                 // blue channel in bits 0-7
@@ -34,13 +34,12 @@ public class ImageReader {
         return this.pixels;
     }
     
-    private Color intToColor(int argb) {
-        int alpha = (argb >> 24) & 0xFF;
-        int red = (argb >> 16) & 0xFF;
-        int green = (argb >> 8) & 0xFF;
-        int blue = argb & 0xFF;
+    private Color intToColor(int rgb) {
+        int red = (rgb >> 16) & 0xFF;
+        int green = (rgb >> 8) & 0xFF;
+        int blue = rgb & 0xFF;
         /* By using the unary &, we clear out any extra bits from the bit shift
         that are not part of our channel */
-        return new Color((float)red, (float)green, (float)blue, (float)alpha);
+        return new Color((float)red, (float)green, (float)blue);
     }
 }
