@@ -28,10 +28,12 @@ public class Pixel {
     }
     
     public void convertToBlackAndWhite(Image image) {
+        String threshold = "969696"; // Hex version of (150, 150, 150), our threshold for grey
         for (Pixel[] pxArray : image.getImage()) {
             for (Pixel px : pxArray) {
-                int average = (px.getRed() + px.getGreen() + px.getBlue()) / 3;
-                Color newColor = new Color(average, average, average);
+                String currentColor = Integer.toHexString(px.getRed()) + Integer.toHexString(px.getGreen()) + Integer.toHexString(px.getBlue());
+                Color newColor;
+                newColor = threshold.compareToIgnoreCase(currentColor) <= 0 ? Color.BLACK : Color.WHITE;
                 px.setColor(newColor);
             }
         }
