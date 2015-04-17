@@ -3,14 +3,15 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ImageReader {
     private File pictureAtPath;
     private BufferedImage image;
     private int width;
     private int height;
-    private Pixel[][] pixels;
-    public Pixel[][] readImage(String path) throws IOException{
+    private ArrayList<Pixel[]> pixels;
+    public ArrayList<Pixel[]> readImage(String path) throws IOException{
         try {
             this.pictureAtPath = new File(path);
             this.image = ImageIO.read(pictureAtPath);
@@ -20,10 +21,10 @@ public class ImageReader {
         }
         this.width = this.image.getWidth();
         this.height = this.image.getHeight();
-        this.pixels = new Pixel[height][width];
+        this.pixels = new ArrayList<Pixel[]>(this.height);
         for (int r = 0; r < this.height; ++r) {
             for (int c = 0; c < this.width; ++c) {
-                this.pixels[r][c] = new Pixel(this.intToColor(this.image.getRGB(r, c)));
+                this.pixels.get(r)[c] = (new Pixel(this.intToColor(this.image.getRGB(r, c))));
                 // getRGB returns an integer of type TYPE_INT_ARGB
                 // alpha channel in bits 24-31 NOT USING ALPHA
                 // red channel in bits 16-23
