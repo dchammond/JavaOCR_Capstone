@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Pixel {
     private Color pixelColor;
@@ -7,58 +9,83 @@ public class Pixel {
         this.pixelColor = color;
     }
     
-    public Color getColor() {
-        return this.pixelColor;
+    public static Color getColor(Pixel px) {
+        return px.pixelColor;
     }
     
-    public void setColor(Color newColor) {
-        this.pixelColor = newColor;
+    public static void setColor(Pixel px, Color newColor) {
+        px.pixelColor = newColor;
     }
     
-    public int getRed() {
-        return this.getColor().getRed();
+    public static int getRed(Pixel px) {
+        return getColor(px).getRed();
     }
     
-    public int getGreen() {
-        return this.getColor().getGreen();
+    public static int getGreen(Pixel px) {
+        return getColor(px).getGreen();
     }
     
-    public int getBlue() {
-        return this.getColor().getBlue();
+    public static int getBlue(Pixel px) {
+        return getColor(px).getBlue();
     }
     
-    public void convertToBlackAndWhite(Image image) {
-        String threshold = "969696"; // Hex version of (150, 150, 150), our threshold for grey
-        for (Pixel[] pxArray : image.getImage()) {
+    public static int getSize(ArrayList<Pixel[]> image) {
+        return getHeight(image) * getWidth(image);
+    }
+    
+    public static int getHeight(ArrayList<Pixel[]> image) {
+        return image.size();
+    }
+    
+    public static int getWidth(ArrayList<Pixel[]> image) {
+        return image.get(0).length;
+    }
+    
+    public static void convertToBlackAndWhite(ArrayList<Pixel[]> image) {
+        String threshold = "969696"; // Hex version of (150, 150, 150), our threshold for something that should be black
+        for (Pixel[] pxArray : image) {
             for (Pixel px : pxArray) {
-                String currentColor = Integer.toHexString(px.getRed()) + Integer.toHexString(px.getGreen()) + Integer.toHexString(px.getBlue());
-                Color newColor;
-                newColor = threshold.compareToIgnoreCase(currentColor) <= 0 ? Color.BLACK : Color.WHITE;
-                px.setColor(newColor);
+                String currentColor = Integer.toHexString(getRed(px)) + Integer.toHexString(getGreen(px)) + Integer.toHexString(getBlue(px));
+                Color newColor = threshold.compareToIgnoreCase(currentColor) <= 0 ? Color.BLACK : Color.WHITE;
+                setColor(px, newColor);
             }
         }
     }
     
-    public Image[] seperateByLines(Image image) {
+    public static ArrayList<ArrayList<Pixel[]>> seperateByLines(ArrayList<Pixel[]> image) {
         // Returns an array of individual images that are lines
-        
+        // As it scans it throws away lines deemed to be white lines
+        // After the first not white line is found, that plus every line until the next white line is a single image
+        double minWhiteSpaceFraction = 0.2; // 20% of the pixels in a row have to be white for it to be a white line
+        ArrayList<ArrayList<Pixel[]>> rowsOfText = new ArrayList<ArrayList<Pixel[]>>(0);
+        ArrayList<Pixel[]> allPixels = image;
+        int length = getWidth(image);
+        boolean bufferMoreRows = false;
+        ArrayList<Pixel[]> rowBuffer = new ArrayList<Pixel[]>(0);;
+        for (Pixel[] pxArray : allPixels) {
+            int blackPixelsFound = 0;
+            for (Pixel px : pxArray) {
+                if (getColor(px).equals(Color.BLACK)) {
+                    ++blackPixelsFound;
+                }
+            }
+            int whitePixelsFound = length - blackPixelsFound;
+            if (whitePixelsFound / length < minWhiteSpaceFraction) {
+                bufferMoreRows = true;
+                rowBuffer.add(pxArray);
+            } else {
+                bufferMoreRows = false;
+                if (rowBuffer.size() > 0) {
+                    rowsOfText.add(rowBuffer);
+                }
+                rowBuffer.clear(); // rowBuffer.size() == 0
+            }
+        }
+        return rowsOfText;
     }
     
-    public Image[] extractCharacters(Image[] line) {
-        // Accepts an array of line images
-        // Returns an array of images of characters
-    }
-    
-    // Wrapper for a Pixel[][]
-    private class Image {
-        private Pixel[][] image;
-        
-        public Image(Pixel[][] image) {
-            this.image = image;
-        }
-        
-        public Pixel[][] getImage() {
-            return this.image;
-        }
+    public static ArrayList<ArrayList<Pixel[]>> extractCharacters(ArrayList<ArrayList<Pixel[]>> lines) {
+        // Accepts an array of line arrays
+        // Returns an array of arrays of characters
     }
 }

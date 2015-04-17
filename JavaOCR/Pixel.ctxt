@@ -1,4 +1,24 @@
 #BlueJ class context
 comment0.params=color
 comment0.target=Pixel(java.awt.Color)
-numComments=1
+comment1.params=px
+comment1.target=java.awt.Color\ getColor(Pixel)
+comment10.params=image
+comment10.target=java.util.ArrayList\ seperateByLines(java.util.ArrayList)
+comment2.params=px\ newColor
+comment2.target=void\ setColor(Pixel,\ java.awt.Color)
+comment3.params=px
+comment3.target=int\ getRed(Pixel)
+comment4.params=px
+comment4.target=int\ getGreen(Pixel)
+comment5.params=px
+comment5.target=int\ getBlue(Pixel)
+comment6.params=image
+comment6.target=int\ getSize(java.util.ArrayList)
+comment7.params=image
+comment7.target=int\ getHeight(java.util.ArrayList)
+comment8.params=image
+comment8.target=int\ getWidth(java.util.ArrayList)
+comment9.params=image
+comment9.target=void\ convertToBlackAndWhite(java.util.ArrayList)
+numComments=11
