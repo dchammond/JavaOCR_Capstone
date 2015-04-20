@@ -1,4 +1,4 @@
-Planning:
+ Planning:
     Things I will need:
         Utility to read image data (might have to stick to jpg?) - ImageReader.java
             The image data will be turned into a Pixel[][]

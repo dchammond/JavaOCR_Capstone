@@ -61,7 +61,7 @@ public class Pixel {
         ArrayList<Pixel[]> allPixels = image;
         int length = getWidth(image);
         boolean bufferMoreRows = false;
-        ArrayList<Pixel[]> rowBuffer = new ArrayList<Pixel[]>(0);;
+        ArrayList<Pixel[]> rowBuffer = new ArrayList<Pixel[]>(0);
         for (Pixel[] pxArray : allPixels) {
             int blackPixelsFound = 0;
             for (Pixel px : pxArray) {
@@ -70,7 +70,7 @@ public class Pixel {
                 }
             }
             int whitePixelsFound = length - blackPixelsFound;
-            if (whitePixelsFound / length < minWhiteSpaceFraction) {
+            if (((double)(double)whitePixelsFound / (double)length) < minWhiteSpaceFraction) {
                 bufferMoreRows = true;
                 rowBuffer.add(pxArray);
             } else {
@@ -87,5 +87,55 @@ public class Pixel {
     public static ArrayList<ArrayList<Pixel[]>> extractCharacters(ArrayList<ArrayList<Pixel[]>> lines) {
         // Accepts an array of line arrays
         // Returns an array of arrays of characters
+        // Similar to how we seperated multiple rows of white pixels as white space
+        // Check for multiple columns in a row of white to find spaces between characters
+        
+        // 1. Get the first ArrayList<Pixel[]> from lines (image)
+        // 2. Get the first Pixel[] from image
+        // 3. Store that first Pixel
+        // 4. Get the second Pixel[] from image
+        // 5. Store that first Pixel
+        // 6. Repeat until we have gone over every Pixel[] from image, that is a column
+        // 7. Do white pixel calculation
+        // 8. If the column is "black text", bufferMoreColumns = true, add the built up column to the characterBuffer
+        // 9. Else, bufferMoreColumns = false
+        // 10. Get the second ArrayList<Pixel[]> form lines (image)
+        // 11. Repeat until we hit the end of lines
+        // 12. return;
+        
+        
+        ArrayList<ArrayList<Pixel[]>> charImages = new ArrayList<ArrayList<Pixel[]>>(0);
+        double minWhiteSpaceFraction = 0.9; // 90% of pixels in a column must be white to be considered a space
+        int height = charImages.get(0).size();
+        boolean bufferMoreColumns = false;
+        ArrayList<Pixel[]> columnBuffer = new ArrayList<Pixel[]>(0);
+        for (int lineNum = 0; lineNum < charImages.size(); ++lineNum) {
+            ArrayList<Pixel[]> currentLine = charImages.get(lineNum);
+            // Iterate over each Pixle[] at 0, then 1 ...
+            // pixelRow is the current Pixel[]
+            // Pixel[column] current pixel
+            for (int column = 0; column < currentLine.size(); ++column) {
+                int blackPixelsFound = 0;
+                int pixelRow = 0;
+                for (pixelRow = 0; pixelRow < currentLine.size(); ++pixelRow) {
+                    Pixel px = currentLine.get(pixelRow)[column];
+                    if (getColor(px).equals(Color.BLACK)) {
+                        ++blackPixelsFound;
+                    }
+                }
+                int whitePixelsFound = height - blackPixelsFound;
+                if ((double)((double) whitePixelsFound / (double) height) < minWhiteSpaceFraction) {
+                    bufferMoreColumns = true;
+                    columnBuffer.add(currentLine.get(pixelRow)[column]);
+                } else {
+                    bufferMoreColumns = false;
+                    if (columnBuffer.size() > 0) {
+                        charImages.add((Pixel[])(columnBuffer.toArray()));
+                    }
+                    columnBuffer.clear(); // columnBuffer.size() == 0;
+                }
+            }
+        }
+        return charImages;
     }
 }
