@@ -133,6 +133,14 @@ public class Pixel {
                 }
             }
         }
+        // THE CHARACTERES MAY COME OUT IN A SINGLE ROW?
         return charImages;
+    }
+    
+    public static ArrayList<ArrayList<ArrayList<Pixel>>> normalizeCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> characters) {
+        // First check the size of the character
+        // If it is smaller than 75 x 75, use hqx algorithm to make it 75 x 75
+        // If it is bigger then 75 x 75, use mipmap to downscale <- ?
+        
     }
 }
