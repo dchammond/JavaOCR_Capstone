@@ -10,8 +10,8 @@ public class ImageReader {
     private BufferedImage image;
     private int width;
     private int height;
-    private ArrayList<Pixel[]> pixels;
-    public ArrayList<Pixel[]> readImage(String path) throws IOException{
+    private ArrayList<ArrayList<Pixel>> pixels;
+    public ArrayList<ArrayList<Pixel>> readImage(String path) throws IOException{
         try {
             this.pictureAtPath = new File(path);
             this.image = ImageIO.read(pictureAtPath);
@@ -21,16 +21,20 @@ public class ImageReader {
         }
         this.width = this.image.getWidth();
         this.height = this.image.getHeight();
-        this.pixels = new ArrayList<Pixel[]>(this.height);
-        for (int r = 0; r < this.height; ++r) {
-            for (int c = 0; c < this.width; ++c) {
-                this.pixels.get(r)[c] = (new Pixel(this.intToColor(this.image.getRGB(r, c))));
+        this.pixels = new ArrayList<ArrayList<Pixel>>(this.height);
+        int r = 0;
+        for (ArrayList<Pixel> pxArray : this.pixels) {
+            int c = 0;
+            for (Pixel px : pxArray) {
+                px = new Pixel(intToColor(this.image.getRGB(r, c)));
                 // getRGB returns an integer of type TYPE_INT_ARGB
                 // alpha channel in bits 24-31 NOT USING ALPHA
                 // red channel in bits 16-23
                 // green channel in bits 8-15
                 // blue channel in bits 0-7
+                ++c;
             }
+            ++r;
         }
         return this.pixels;
     }
