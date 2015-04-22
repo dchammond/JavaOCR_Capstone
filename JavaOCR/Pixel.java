@@ -135,14 +135,37 @@ public class Pixel {
         }
         return charImages;
     }
-    
+    /*
     public static ArrayList<ArrayList<ArrayList<Pixel>>> normalizeCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> characters) {
         // First check the size of the character
-        // If it is smaller than 75 x 75, use hqx algorithm to make it 75 x 75
+        // If it is smaller than 75 x 75, use nearest neighbor algorithm to make it 75 x 75
         // If it is bigger then 75 x 75, use mipmap to downscale <- ?
         // Remember that a character image is stored with its columns represented as rows
           // For example: row 0 is actually column 0, row 1 is actually column 1
         
-        
+    }
+    */
+    private static ArrayList<ArrayList<Pixel>> resizeImage(ArrayList<ArrayList<Pixel>> image, int newWidth, int newHeight) {
+        int oldWidth = image.get(0).size();
+        int oldHeight = image.size();
+        ArrayList<Pixel> columns = new ArrayList<Pixel>(newWidth);
+        ArrayList<ArrayList<Pixel>> resizedImage = new ArrayList<ArrayList<Pixel>>(newHeight);
+        for (ArrayList<Pixel> col : resizedImage) {
+            col = columns;
+        }
+        double x_ratio = oldWidth/(double)newWidth;
+        double y_ratio = oldHeight/(double)newHeight;
+        double px, py;
+        int rowNum = 0;
+        for (ArrayList<Pixel> row : image) {
+            for (int r = 0; r < newHeight; ++r) {
+                for (int c = 0; c < newWidth; ++c) {
+                    py = Math.min(Math.floor(r / y_ratio), oldHeight);
+                    px = Math.min(Math.floor(c / x_ratio), oldWidth);
+                    resizedImage.get(rowNum).set((int)(newWidth * r)+c, row.get((int)px + (int)py));
+                }
+            }
+        }
+        return resizedImage;
     }
 }
