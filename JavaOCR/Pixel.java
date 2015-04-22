@@ -133,7 +133,6 @@ public class Pixel {
                 }
             }
         }
-        // THE CHARACTERES MAY COME OUT IN A SINGLE ROW?
         return charImages;
     }
     
@@ -141,6 +140,9 @@ public class Pixel {
         // First check the size of the character
         // If it is smaller than 75 x 75, use hqx algorithm to make it 75 x 75
         // If it is bigger then 75 x 75, use mipmap to downscale <- ?
+        // Remember that a character image is stored with its columns represented as rows
+          // For example: row 0 is actually column 0, row 1 is actually column 1
+        
         
     }
 }
