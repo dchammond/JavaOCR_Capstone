@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +14,7 @@ public class ImageReader {
     private int height;
     private ArrayList<ArrayList<Pixel>> pixels;
     public ArrayList<ArrayList<Pixel>> readImage(String path) throws IOException{
+        int x = 8;
         try {
             this.pictureAtPath = new File(path);
             this.image = ImageIO.read(pictureAtPath);
@@ -39,6 +42,27 @@ public class ImageReader {
         return this.pixels;
     }
     
+    public void test(ArrayList<ArrayList<Pixel>> image) {
+        int width = image.get(0).size();
+        int height = image.size();
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        WritableRaster raster = newImage.getRaster();//(WritableRaster) newImage.getData();
+        
+        for (int r = 0; r < height; ++r) {
+            for (int c = 0; c < width; ++c) {
+                Pixel px = image.get(r).get(c);
+                int[] color = colorToIntArray(Pixel.getColor(px));
+                raster.setPixel(r, c, color);
+            }
+        }
+        try {
+            ImageIO.write(newImage, "jpg", new File("~/Desktop/test.jpg"));
+        } catch (Exception e) {
+            System.out.println("NOO: " + e);
+            System.exit(0);
+        }
+    }
+    
     private Color intToColor(int rgb) {
         int red = (rgb >> 16) & 0xFF;
         int green = (rgb >> 8) & 0xFF;
@@ -46,5 +70,13 @@ public class ImageReader {
         /* By using the unary &, we clear out any extra bits from the bit shift
         that are not part of our channel */
         return new Color((float)red, (float)green, (float)blue);
+    }
+    
+    private int[] colorToIntArray(Color color) {
+        int[] array = new int[3];
+        array[0] = color.getRed();
+        array[1] = color.getGreen();
+        array[2] = color.getBlue();
+        return array;
     }
 }
