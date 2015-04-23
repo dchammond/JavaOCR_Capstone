@@ -135,16 +135,16 @@ public class Pixel {
         }
         return charImages;
     }
-    /*
+    
     public static ArrayList<ArrayList<ArrayList<Pixel>>> normalizeCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> characters) {
-        // First check the size of the character
-        // If it is smaller than 75 x 75, use nearest neighbor algorithm to make it 75 x 75
-        // If it is bigger then 75 x 75, use mipmap to downscale <- ?
         // Remember that a character image is stored with its columns represented as rows
           // For example: row 0 is actually column 0, row 1 is actually column 1
-        
+        for (ArrayList<ArrayList<Pixel>> images : characters) {
+            images = resizeImage(images, 75, 75); // Resize all images to 75 by 75
+        }
+        return characters;
     }
-    */
+    
     private static ArrayList<ArrayList<Pixel>> resizeImage(ArrayList<ArrayList<Pixel>> image, int newWidth, int newHeight) {
         int oldWidth = image.get(0).size();
         int oldHeight = image.size();
