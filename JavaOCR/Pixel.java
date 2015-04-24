@@ -45,7 +45,7 @@ public class Pixel {
         return "Color: " + getColor(this);
     }
     
-    private static void convertToBlackAndWhite(ArrayList<ArrayList<Pixel>> image) {
+    public static void convertToBlackAndWhite(ArrayList<ArrayList<Pixel>> image) {
         String threshold = "969696"; // Hex version of (150, 150, 150), our threshold for something that should be black
         for (ArrayList<Pixel> pxArray : image) {
             for (Pixel px : pxArray) {
@@ -56,11 +56,11 @@ public class Pixel {
         }
     }
     
-    private static ArrayList<ArrayList<ArrayList<Pixel>>> seperateByLines(ArrayList<ArrayList<Pixel>> image) {
+    public static ArrayList<ArrayList<ArrayList<Pixel>>> seperateByLines(ArrayList<ArrayList<Pixel>> image) {
         // Returns an array of individual images that are lines
         // As it scans it throws away lines deemed to be white lines
         // After the first not white line is found, that plus every line until the next white line is a single image
-        double minWhiteSpaceFraction = 0.2; // 20% of the pixels in a row have to be white for it to be a white line
+        double minWhiteSpaceFraction = 0.99; // 99% of the pixels in a row have to be white for it to be a white line
         ArrayList<ArrayList<ArrayList<Pixel>>> rowsOfText = new ArrayList<ArrayList<ArrayList<Pixel>>>(0);
         ArrayList<ArrayList<Pixel>> allPixels = image;
         int length = getWidth(image);
@@ -80,16 +80,27 @@ public class Pixel {
             } else {
                 bufferMoreRows = false;
                 if (rowBuffer.size() > 0) {
-                    rowsOfText.add(rowBuffer);
+                    ArrayList<ArrayList<Pixel>> tempRowBuffer = new ArrayList<ArrayList<Pixel>>(rowBuffer.size());
+                    // the temp is needed to avoid STUPID java object pass by stupid pointer
+                        // WHAT IF I WANT PURE PASS_BY_VALUE FOR OBJECTS HUH?
+                        // THEN I COULD AVOID THE STUFF RIGHT BELOW ME!
+                    for (int i = 0; i < rowBuffer.size(); ++i) {
+                        tempRowBuffer.add(new ArrayList<Pixel>(rowBuffer.get(i).size()));
+                        for (int j = 0; j < rowBuffer.get(i).size(); ++j) {
+                            tempRowBuffer.get(i).add(new Pixel(Pixel.getColor(rowBuffer.get(i).get(j))));
+                        }
+                    }
+                    rowsOfText.add(tempRowBuffer);
                 }
-                rowBuffer.clear(); // rowBuffer.size() == 0
-                assert(rowBuffer.size() == 0);
+                rowBuffer.clear();
+                assert rowBuffer.size() == 0 : "rowBuffer size not reset to 0 (" + rowBuffer.size() + ")";
             }
         }
+        assert rowsOfText.size() > 0 : "The number of rows made is <= 0 (" + rowsOfText.size() + ")";
         return rowsOfText;
     }
     
-    private static ArrayList<ArrayList<ArrayList<Pixel>>> extractCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> lines) {
+    public static ArrayList<ArrayList<ArrayList<Pixel>>> extractCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> lines) {
         // Accepts an array of line arrays
         // Returns an array of arrays of characters
         // Similar to how we seperated multiple rows of white pixels as white space
@@ -140,7 +151,7 @@ public class Pixel {
         return charImages;
     }
     
-    private static ArrayList<ArrayList<ArrayList<Pixel>>> normalizeCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> characters) {
+    public static ArrayList<ArrayList<ArrayList<Pixel>>> normalizeCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> characters) {
         // Remember that a character image is stored with its columns represented as rows
           // For example: row 0 is actually column 0, row 1 is actually column 1
         for (ArrayList<ArrayList<Pixel>> images : characters) {
@@ -149,7 +160,7 @@ public class Pixel {
         return characters;
     }
     
-    private static ArrayList<ArrayList<Pixel>> resizeImage(ArrayList<ArrayList<Pixel>> image, int newWidth, int newHeight) {
+    public static ArrayList<ArrayList<Pixel>> resizeImage(ArrayList<ArrayList<Pixel>> image, int newWidth, int newHeight) {
         int oldWidth = image.get(0).size();
         int oldHeight = image.size();
         ArrayList<Pixel> columns = new ArrayList<Pixel>(newWidth);
