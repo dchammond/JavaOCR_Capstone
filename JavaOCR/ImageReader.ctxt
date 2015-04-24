@@ -2,9 +2,11 @@
 comment0.params=path
 comment0.target=java.util.ArrayList\ readImage(java.lang.String)
 comment1.params=image
-comment1.target=void\ test(java.util.ArrayList)
+comment1.target=void\ testPixel(java.util.ArrayList)
 comment2.params=rgb
 comment2.target=java.awt.Color\ intToColor(int)
 comment3.params=color
 comment3.target=int[]\ colorToIntArray(java.awt.Color)
-numComments=4
+comment4.params=filePath
+comment4.target=void\ test(java.lang.String)
+numComments=5

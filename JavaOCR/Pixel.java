@@ -41,7 +41,11 @@ public class Pixel {
         return image.get(0).size();
     }
     
-    public static void convertToBlackAndWhite(ArrayList<ArrayList<Pixel>> image) {
+    public String toString() {
+        return "Color: " + getColor(this);
+    }
+    
+    private static void convertToBlackAndWhite(ArrayList<ArrayList<Pixel>> image) {
         String threshold = "969696"; // Hex version of (150, 150, 150), our threshold for something that should be black
         for (ArrayList<Pixel> pxArray : image) {
             for (Pixel px : pxArray) {
@@ -52,7 +56,7 @@ public class Pixel {
         }
     }
     
-    public static ArrayList<ArrayList<ArrayList<Pixel>>> seperateByLines(ArrayList<ArrayList<Pixel>> image) {
+    private static ArrayList<ArrayList<ArrayList<Pixel>>> seperateByLines(ArrayList<ArrayList<Pixel>> image) {
         // Returns an array of individual images that are lines
         // As it scans it throws away lines deemed to be white lines
         // After the first not white line is found, that plus every line until the next white line is a single image
@@ -85,7 +89,7 @@ public class Pixel {
         return rowsOfText;
     }
     
-    public static ArrayList<ArrayList<ArrayList<Pixel>>> extractCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> lines) {
+    private static ArrayList<ArrayList<ArrayList<Pixel>>> extractCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> lines) {
         // Accepts an array of line arrays
         // Returns an array of arrays of characters
         // Similar to how we seperated multiple rows of white pixels as white space
@@ -136,7 +140,7 @@ public class Pixel {
         return charImages;
     }
     
-    public static ArrayList<ArrayList<ArrayList<Pixel>>> normalizeCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> characters) {
+    private static ArrayList<ArrayList<ArrayList<Pixel>>> normalizeCharacters(ArrayList<ArrayList<ArrayList<Pixel>>> characters) {
         // Remember that a character image is stored with its columns represented as rows
           // For example: row 0 is actually column 0, row 1 is actually column 1
         for (ArrayList<ArrayList<Pixel>> images : characters) {
