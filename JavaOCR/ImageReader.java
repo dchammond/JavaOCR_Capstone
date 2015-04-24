@@ -17,7 +17,7 @@ public class ImageReader {
         try {
             this.image = ImageIO.read(new FileInputStream(new File(path)));
         } catch (Exception e) {
-            System.out.println("An error occured accessing a file: " + e);
+            System.out.println("An error occured accessing the file at " + path + " : " + e);
             System.exit(0);
         }
         this.width = this.image.getWidth();
@@ -31,7 +31,7 @@ public class ImageReader {
                 int argb = this.image.getRGB(c, r); // Takes x-coord, y-coord)
                 Color color = intToColor(argb);
                 Pixel px = new Pixel(color);
-                assert px != null : "Created a null pixel";
+                assert px != null : "Created a null pixel from Color: " + color + " from argb " + argb;
                 // getRGB returns an integer of type TYPE_INT_ARGB
                 // alpha channel in bits 24-31 NOT USING ALPHA
                 // red channel in bits 16-23
@@ -44,11 +44,11 @@ public class ImageReader {
         return this.pixels;
     }
     
-    public void testPixel(ArrayList<ArrayList<Pixel>> image) {
+    public void createNewImage(ArrayList<ArrayList<Pixel>> image, String newFilePath, String fileFormat) {
         int width = image.get(0).size();
         int height = image.size();
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        WritableRaster raster = newImage.getRaster();//(WritableRaster) newImage.getData();
+        WritableRaster raster = newImage.getRaster();
         assert raster.getHeight() == height : "raster height does not equal image height\nShould be " + height + " but is " + raster.getHeight();
         assert raster.getWidth() == width : "raster width does not equal image width\nShould be " + width + " but is " + raster.getWidth();
         for (int r = 0; r < height; ++r) {
@@ -59,9 +59,9 @@ public class ImageReader {
             }
         }
         try {
-            ImageIO.write(newImage, "png", new File("/Users/Dillon/Desktop/test.png"));
+            ImageIO.write(newImage, fileFormat, new File(newFilePath+fileFormat));
         } catch (Exception e) {
-            System.out.println("Image did not write: " + e);
+            System.out.println("An error occurred while writing the image: " + e);
             System.exit(0);
         }
     }
@@ -82,15 +82,5 @@ public class ImageReader {
         array[1] = color.getGreen();
         array[2] = color.getBlue();
         return array;
-    }
-    
-    public void test(String filePath) {
-        String file = "/Users/Dillon/Desktop/" + filePath;
-        try {
-            ArrayList<ArrayList<Pixel>> myPixels = readImage(file);
-            testPixel(myPixels);
-        } catch (Exception e) {
-            System.out.println("why: " + e);
-        }
     }
 }
