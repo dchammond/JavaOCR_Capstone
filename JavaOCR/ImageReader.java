@@ -29,7 +29,7 @@ public class ImageReader {
             this.pixels.add(new ArrayList<Pixel>(0));
             for (int c = 0; c < this.width; ++c) {
                 int argb = this.image.getRGB(c, r); // Takes x-coord, y-coord)
-                Color color = intToColor(Math.abs(argb));
+                Color color = intToColor(argb);
                 Pixel px = new Pixel(color);
                 assert px != null : "Created a null pixel";
                 // getRGB returns an integer of type TYPE_INT_ARGB
