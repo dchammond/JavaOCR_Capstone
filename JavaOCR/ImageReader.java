@@ -66,10 +66,11 @@ public class ImageReader {
         }
     }
     
-    private Color intToColor(int rgb) {
-        int red = (rgb >> 16) & 0xFF;
-        int green = (rgb >> 8) & 0xFF;
-        int blue = rgb & 0xFF;
+    private Color intToColor(int argb) {
+        // We ignore the alpha channel
+        int red = (argb >> 16) & 0xFF;
+        int green = (argb >> 8) & 0xFF;
+        int blue = argb & 0xFF;
         /* By using the unary &, we clear out any extra bits from the bit shift
         that are not part of our channel */
         Color color = new Color(red, green, blue);
