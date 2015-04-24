@@ -44,7 +44,7 @@ public class ImageReader {
         return this.pixels;
     }
     
-    public void createNewImage(ArrayList<ArrayList<Pixel>> image, String newFilePath, String fileFormat) {
+    public void createNewImage(ArrayList<ArrayList<Pixel>> image, String newFilePath) {
         int width = image.get(0).size();
         int height = image.size();
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -58,10 +58,14 @@ public class ImageReader {
                 raster.setPixel(c, r, color); // x-coord, y-coord
             }
         }
+        String fileFormat = newFilePath.substring(newFilePath.indexOf('.')+1);
+        assert fileFormat.indexOf('.') < 0 : "Invalid format: " + fileFormat; // There should be no . in the format
         try {
-            ImageIO.write(newImage, fileFormat, new File(newFilePath+fileFormat));
+            ImageIO.write(newImage, fileFormat, new File(newFilePath));
+            this.image.flush();
         } catch (Exception e) {
             System.out.println("An error occurred while writing the image: " + e);
+            this.image.flush();
             System.exit(0);
         }
     }
