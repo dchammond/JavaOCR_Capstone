@@ -50,7 +50,7 @@ public class Pixel {
         for (ArrayList<Pixel> pxArray : image) {
             for (Pixel px : pxArray) {
                 String currentColor = Integer.toHexString(getRed(px)) + Integer.toHexString(getGreen(px)) + Integer.toHexString(getBlue(px));
-                Color newColor = threshold.compareToIgnoreCase(currentColor) <= 0 ? Color.BLACK : Color.WHITE;
+                Color newColor = threshold.compareToIgnoreCase(currentColor) > 0 ? Color.BLACK : Color.WHITE;
                 setColor(px, newColor);
             }
         }
