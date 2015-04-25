@@ -19,7 +19,7 @@ public class Profile {
      * <br>
      * args[0] == where to place training data
      * <br>
-     * args[1] == the location of a typed txt fiel containing the information you will write in you handwriting sample
+     * args[1] == the location of a typed txt field containing the information you will write in you handwriting sample
      * <br>
      * args[2] == the location of an image of your writing
      */
