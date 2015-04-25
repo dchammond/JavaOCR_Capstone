@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=path
+comment0.target=java.util.ArrayList\ readImage(java.lang.String)
+comment0.text=\n\ readImage\ -\ A\ mehtod\ that\ takes\ in\ a\ file\ path\ and\ turns\ the\ picture\ at\ that\ location\ into\n\ a\ doubly,\ nested\ ArrayList\ of\ Pixel\ objects\n\ @param\ path\ The\ absolute\ (not\ relative)\ path\ to\ the\ image\ file\n\ @throws\ IOException\ Exception\ is\ thrown\ if\ there\ is\ an\ issue\ reading\ the\ image\ file\n\ @return\ ArrayList<ArrayList<Pixel>>\ The\ image\ converted\ into\ Pixel\ objects\n
+comment1.params=image\ newFilePath
+comment1.target=void\ createNewImage(java.util.ArrayList,\ java.lang.String)
+comment1.text=\n\ createNewImage\ -\ This\ method\ writes\ a\ new\ image\ of\ a\ specified\ format\ to\ the\ disk\n\ @param\ image\ The\ double\ nested\ ArrayList\ of\ Pixel\ objects\ representing\ an\ image\n\ @param\ newFilePath\ The\ path\ where\ the\ new\ file\ will\ be\ created\n
+comment2.params=imageA\ imageB\ tolerance
+comment2.target=boolean\ equals(java.util.ArrayList,\ java.util.ArrayList,\ double)
+comment2.text=\n\ equals\ -\ A\ method\ to\ test\ the\ equality\ of\ two\ images\ based\ off\ percent\ pixel\ match\ and\ a\ tolerance\ for\ error\n\ @param\ imageA\ The\ first\ image\ to\ compare\n\ @param\ imageB\ The\ second\ image\ to\ compare\n\ @param\ tolerance\ A\ percent\ represented\ as\ a\ decimalo\ indicating\ the\ maximum\ allowed\ difference\ for\ two\ images\ to\ equal\ each\ other\n\ @pre-condition\ imageA\ and\ imageB\ have\ the\ same\ dimensions\n\ @return\ boolean\ Whether\ or\ not\ the\ iamges\ were\ equal\ within\ tolerance\n
+comment3.params=argb
+comment3.target=java.awt.Color\ intToColor(int)
+comment3.text=\n\ intToColor\ -\ A\ small\ private\ method\ to\ convert\ an\ int\ to\ a\ Color\ object\n\ @param\ argb\ The\ integer\ containing\ an\ alpha,\ red,\ green,\ and\ blue\ channels\n\ @return\ Color\ a\ new\ Color\ object\ made\ of\ the\ red,\ green,\ blue\ channels\ (alpha\ is\ ignored\ and\ is\ set\ to\ Color's\ defualt\ value)\n
+comment4.params=color
+comment4.target=int[]\ colorToIntArray(java.awt.Color)
+comment4.text=\n\ colorToIntArray\ -\ turn\ a\ Color\ into\ an\ array\ of\ 3\ ints\ that\ represent\ red,\ green,\ blue\ channels\n\ @param\ color\ The\ Color\ object\ to\ be\ converted\ into\ ints\n\ @return\ int[]\ An\ int\ array\ of\ size\ 3\ that\ contains\ red,\ gree,\ blue\ channels\n
+numComments=5
