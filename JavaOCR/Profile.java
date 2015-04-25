@@ -25,7 +25,8 @@ public class Profile {
      */
     public static void main(String[] args) {
         setTrainingDataDestination(args[0]);
-        submitHandwritingSample(args[1], args[2]);
+        //submitHandwritingSample(args[1], args[2]);
+        examples(args[1], args[2]);
     }
     
     /**
@@ -59,6 +60,28 @@ public class Profile {
         ArrayList<ArrayList<ArrayList<Pixel>>> characters = Pixel.normalizeCharacters(Pixel.extractCharacters(Pixel.seperateByLines(image)));
         for (int i = 0; i < characters.size(); ++i) {
             ImageHandler.createNewImage(characters.get(i), directoryToStoreData+"char"+written.substring(i, i+1)+".png");
+        }
+    }
+    
+    /**
+     * examples - An example mehtod to ceate a black and white copy of an iamge and to print the image broken into lines
+     * @param typedDocument The path to a txt file containing a typed version of your writing
+     * @param pathToImage The path to the image of your writing
+     */
+    public static void examples(String typedDocument, String pathToImage) {
+        ArrayList<ArrayList<Pixel>> image = new ArrayList<ArrayList<Pixel>>(0);
+        try {
+            image = ImageHandler.readImage(pathToImage);
+        } catch (Exception e) {
+            System.out.println("An error occured reading the image: " + e);
+            System.exit(0);
+        }
+        Pixel.convertToBlackAndWhite(image);
+        ArrayList<ArrayList<Pixel>> blackAndWhite = image;
+        ImageHandler.createNewImage(blackAndWhite, directoryToStoreData+"blackandwhite.png");
+        ArrayList<ArrayList<ArrayList<Pixel>>> lines = Pixel.seperateByLines(image);
+        for (int i = 0; i < lines.size(); ++i) {
+            ImageHandler.createNewImage(lines.get(i), directoryToStoreData+"line"+i+".png");
         }
     }
     

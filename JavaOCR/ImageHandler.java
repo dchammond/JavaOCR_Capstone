@@ -23,7 +23,7 @@ public class ImageHandler {
      * @return ArrayList<ArrayList<Pixel>> The image converted into Pixel objects
      */
     public static ArrayList<ArrayList<Pixel>> readImage(String path) throws IOException{
-        BufferedImage image = new BufferedImage(0, 0, 0); // A default BufferedImage
+        BufferedImage image = null;;
         int width = 0;
         int height = 0;
         ArrayList<ArrayList<Pixel>> pixels = new ArrayList<ArrayList<Pixel>>(0);
