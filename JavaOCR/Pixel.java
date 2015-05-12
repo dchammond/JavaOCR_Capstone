@@ -278,14 +278,19 @@ public class Pixel {
      * @param newHeight The new height of the image
      * @return ArrayList<ArrayList<Pixel>> A single image that has dimensions of newWidth and newHeight
      */
-    private static ArrayList<ArrayList<Pixel>> resizeImage(ArrayList<ArrayList<Pixel>> image, int newWidth, int newHeight) {
+    public static ArrayList<ArrayList<Pixel>> resizeImage(ArrayList<ArrayList<Pixel>> image, int newWidth, int newHeight) {
         int oldWidth = image.get(0).size();
         int oldHeight = image.size();
         ArrayList<Pixel> columns = new ArrayList<Pixel>(newWidth);
-        ArrayList<ArrayList<Pixel>> resizedImage = new ArrayList<ArrayList<Pixel>>(newHeight);
-        for (ArrayList<Pixel> col : resizedImage) {
-            col = columns;
+        for (int k = 0; k < newWidth; ++k) {
+            columns.add(null);
         }
+        assert columns.size() == newWidth : "columns.size() != newWidth (" + columns.size() + ")";
+        ArrayList<ArrayList<Pixel>> resizedImage = new ArrayList<ArrayList<Pixel>>(newHeight);
+        for (int k = 0; k < newHeight; ++k) {
+            resizedImage.add(columns);
+        }
+         assert resizedImage.size() == newHeight : "resizedImage size != newHeight (" + resizedImage.size() + ")";
         double x_ratio = oldWidth/(double)newWidth;
         double y_ratio = oldHeight/(double)newHeight;
         double px, py;
@@ -297,7 +302,7 @@ public class Pixel {
                     px = Math.min(Math.floor(c / x_ratio), oldWidth);
                     resizedImage.get(rowNum).set((int)(newWidth * r)+c, row.get((int)px + (int)py));
                 }
-            }
+              }
         }
         return resizedImage;
     }

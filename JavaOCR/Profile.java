@@ -78,6 +78,7 @@ public class Profile {
         }
         Pixel.convertToBlackAndWhite(image);
         ArrayList<ArrayList<Pixel>> blackAndWhite = image;
+        Pixel.resizeImage(blackAndWhite, 100, 100);
         ImageHandler.createNewImage(blackAndWhite, directoryToStoreData+"blackandwhite.png");
         ArrayList<ArrayList<ArrayList<Pixel>>> lines = Pixel.seperateByLines(image);
         for (int i = 0; i < lines.size(); ++i) {
