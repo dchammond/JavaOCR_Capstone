@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.media.jai.InterpolationBicubic;
+import javax.media.jai.InterpolationBilinear;
 
 /**
  * Pixel - this class represents a Pixel object and contains sattic methods to manipulate Pixels
@@ -279,31 +281,14 @@ public class Pixel {
      * @return ArrayList<ArrayList<Pixel>> A single image that has dimensions of newWidth and newHeight
      */
     public static ArrayList<ArrayList<Pixel>> resizeImage(ArrayList<ArrayList<Pixel>> image, int newWidth, int newHeight) {
-        int oldWidth = image.get(0).size();
-        int oldHeight = image.size();
-        ArrayList<Pixel> columns = new ArrayList<Pixel>(newWidth);
-        for (int k = 0; k < newWidth; ++k) {
-            columns.add(null);
-        }
-        assert columns.size() == newWidth : "columns.size() != newWidth (" + columns.size() + ")";
-        ArrayList<ArrayList<Pixel>> resizedImage = new ArrayList<ArrayList<Pixel>>(newHeight);
-        for (int k = 0; k < newHeight; ++k) {
-            resizedImage.add(columns);
-        }
-        assert resizedImage.size() == newHeight : "resizedImage size != newHeight (" + resizedImage.size() + ")";
-        double x_ratio = oldWidth/(double)newWidth;
-        double y_ratio = oldHeight/(double)newHeight;
-        double px, py;
-        int rowNum = 0;
-        for (ArrayList<Pixel> row : image) {
-            for (int r = 0; r < newHeight; ++r) {
-                for (int c = 0; c < newWidth; ++c) {
-                    py = Math.min(Math.floor(r / y_ratio), oldHeight);
-                    px = Math.min(Math.floor(c / x_ratio), oldWidth);
-                    resizedImage.get(rowNum).set((int)(newWidth * r)+c, row.get((int)px + (int)py));
-                }
-              }
-        }
-        return resizedImage;
+        ArrayList<ArrayList<Pixel>> newImage = null;
+        
+        return newImage;
+    }
+    
+    private static InterpolationBicubic scaleDown(ArrayList<ArrayList<Pixel>> oldImage, int newWidth, int newHeight) {
+        InterpolationBicubic bicubic = new InterpolationBicubic(8); // 8 bits of precision
+        
+        return bicubic;
     }
 }
