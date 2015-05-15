@@ -290,7 +290,7 @@ public class Pixel {
         for (int k = 0; k < newHeight; ++k) {
             resizedImage.add(columns);
         }
-         assert resizedImage.size() == newHeight : "resizedImage size != newHeight (" + resizedImage.size() + ")";
+        assert resizedImage.size() == newHeight : "resizedImage size != newHeight (" + resizedImage.size() + ")";
         double x_ratio = oldWidth/(double)newWidth;
         double y_ratio = oldHeight/(double)newHeight;
         double px, py;
