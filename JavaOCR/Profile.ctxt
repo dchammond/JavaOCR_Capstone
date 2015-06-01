@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.params=args
 comment0.target=void\ main(java.lang.String[])
-comment0.text=\n\ main\ -\ The\ main\ method\ of\ hte\ program\n\ @param\ args\ A\ String\ array\ where\n\ <br>\n\ args[0]\ \=\=\ where\ to\ place\ output\ images\ ("/Users/<name>/Desktop/someFolder/")\n\ <br>\n\ args[1]\ \=\=\ the\ location\ of\ a\ typed\ txt\ field\ containing\ the\ information\ you\ will\ write\ in\ you\ handwriting\ sample\ (Just\ put\ empty\ string\ "")\n\ <br>\n\ args[2]\ \=\=\ the\ location\ of\ an\ image\ of\ your\ writing\ ("/Users/<name>/Desktop/testImage.png")\n
+comment0.text=\n\ main\ -\ The\ main\ method\ of\ hte\ program\n\ @param\ args\ A\ String\ array\ where\n\ <br>\n\ args[0]\ \=\=\ where\ to\ place\ output\ images\ ("/Users/<name>/Desktop/someFolder/")\n\ <br>\n\ args[1]\ \=\=\ the\ location\ of\ a\ typed\ txt\ field\ containing\ the\ information\ you\ will\ write\ in\ you\ handwriting\ sample\ (Just\ put\ empty\ string\ "")\n\ <br>\n\ args[2]\ \=\=\ the\ location\ of\ an\ image\ of\ your\ writing\ ("/Users/<name>/Desktop/testImage.png")\n\ <br>\n\ This\ will\ output\ an\ image\ converted\ to\ black\ and\ white\ and\ one\ image\ for\ each\ line\ of\ text\ in\ the\ original\ image\n
 comment1.params=pathToFolder
 comment1.target=void\ setTrainingDataDestination(java.lang.String)
 comment1.text=\n\ setTrainingDataDestination\ -\ a\ method\ to\ set\ whe\ Profile\ will\ send\ its\ trainging\ info\ to\n\ @param\ pathToFolder\ The\ path\ to\ the\ folder\ where\ the\ data\ will\ be\ stored\n

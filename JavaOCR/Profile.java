@@ -22,6 +22,8 @@ public class Profile {
      * args[1] == the location of a typed txt field containing the information you will write in you handwriting sample (Just put empty string "")
      * <br>
      * args[2] == the location of an image of your writing ("/Users/<name>/Desktop/testImage.png")
+     * <br>
+     * This will output an image converted to black and white and one image for each line of text in the original image
      */
     public static void main(String[] args) {
         setTrainingDataDestination(args[0]);
