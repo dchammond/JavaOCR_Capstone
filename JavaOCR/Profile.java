@@ -17,7 +17,7 @@ public class Profile {
      * main - The main method of hte program
      * @param args A String array where
      * <br>
-     * args[0] == where to place training data ("/Users/<name>/Desktop/someFolder/")
+     * args[0] == where to place output images ("/Users/<name>/Desktop/someFolder/")
      * <br>
      * args[1] == the location of a typed txt field containing the information you will write in you handwriting sample (Just put empty string "")
      * <br>
