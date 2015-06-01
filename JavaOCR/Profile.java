@@ -17,11 +17,11 @@ public class Profile {
      * main - The main method of hte program
      * @param args A String array where
      * <br>
-     * args[0] == where to place training data
+     * args[0] == where to place training data ("/Users/<name>/Desktop/someFolder/")
      * <br>
-     * args[1] == the location of a typed txt field containing the information you will write in you handwriting sample
+     * args[1] == the location of a typed txt field containing the information you will write in you handwriting sample (Just put empty string "")
      * <br>
-     * args[2] == the location of an image of your writing
+     * args[2] == the location of an image of your writing ("/Users/<name>/Desktop/testImage.png")
      */
     public static void main(String[] args) {
         setTrainingDataDestination(args[0]);
